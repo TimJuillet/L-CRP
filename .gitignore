@@ -1,0 +1,5 @@
+datasets/coco2017
+.DS_Store
+__pycache__
+*.pt
+.venv

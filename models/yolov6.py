@@ -44,8 +44,10 @@ MODEL = dict(
 
 def get_yolov6(*args, **kwargs):
     cfg = Config({"model": MODEL})
-    model = build_model(cfg=cfg, num_classes=80, device=0)
-    sd = torch.load("models/checkpoints/yolov6s_ckpt.pt")
+    # Changez cette ligne
+    model = build_model(cfg=cfg, num_classes=80, device="cpu")  # device="cpu" au lieu de device=0
+    # Et ajoutez map_location="cpu" ici
+    sd = torch.load("models/checkpoints/yolov6s_ckpt.pt", map_location="cpu")
     model.load_state_dict(sd)
     model.backbone.stem.switch_to_deploy()
     return model
@@ -992,5 +994,6 @@ class Config(object):
 
 
 def build_model(cfg, num_classes, device):
+    # Assurez-vous que le device est correctement passé
     model = Model(cfg, channels=3, num_classes=num_classes, anchors=cfg.model.head.anchors).to(device)
     return model

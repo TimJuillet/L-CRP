@@ -15,7 +15,8 @@ from utils.crp_configs import ATTRIBUTORS, CANONIZERS, VISUALIZATIONS, COMPOSITE
 # @click.option("--dataset_name", default="cityscapes")
 @click.option("--batch_size", default=12)
 def main(model_name, dataset_name, batch_size):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    #device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
     _, test_dataset, n_classes = get_dataset(dataset_name=dataset_name).values()
     dataset = test_dataset(preprocessing=True)
     model = get_model(model_name=model_name, classes=n_classes)
